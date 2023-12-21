@@ -42,15 +42,11 @@ public class P11724 {
     }
 
     static void DFS(int v) {
-        if (visited[v]) { // 방문했으면 종료
-            return;
-        }
-
+        if (visited[v]) return;
         visited[v] = true;
-        for (int i : A[v]) {
-            if (!visited[i]) { // 방문하지 않았으면 탐색
-                DFS(i);
-            }
+
+        for (int o : A[v]) {
+            if (!visited[o]) DFS(o);
         }
     }
 }
