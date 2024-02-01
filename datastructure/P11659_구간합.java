@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class P11659 {
+public class P11659_구간합 {
     public static void main(String[] args) throws IOException {
         // System.in 을 읽어서 버퍼로 읽어들임
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
@@ -22,7 +22,7 @@ public class P11659 {
         stringTokenizer = new StringTokenizer(bufferedReader.readLine());
 
         // S[i] = S[i-1] + A[i]
-            for (int i = 1; i <= N; i++) {
+        for (int i = 1; i <= N; i++) {
             S[i] = S[i-1] + Integer.parseInt(stringTokenizer.nextToken());
         }
 
