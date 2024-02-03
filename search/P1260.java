@@ -37,11 +37,11 @@ public class P1260 {
             Collections.sort(A[i]);
         }
 
-        visited = new boolean[n + 1];
+        visited = new boolean[n + 1]; // 방문배열 초기화
         DFS(start);
 
         System.out.println();
-        visited = new boolean[n + 1];
+        visited = new boolean[n + 1]; // 방문배열 초기화
         BFS(start);
     }
 
