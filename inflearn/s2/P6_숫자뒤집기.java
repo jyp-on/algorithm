@@ -1,4 +1,4 @@
-package org.example.inflearn.array;
+package org.example.inflearn.s2;
 
 import java.util.ArrayList;
 import java.util.Scanner;

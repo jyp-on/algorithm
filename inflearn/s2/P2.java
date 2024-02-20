@@ -1,16 +1,15 @@
-package org.example.inflearn.array;
+package org.example.inflearn.s2;
 
 import java.util.Scanner;
 
-public class P7 {
-    public static int solution(int n, int[] arr) {
+public class P2 {
+    public static int solution(int[] arr) {
         int answer = 0;
-        int plus = 0;
-        for (int i = 0; i < n; i++) {
-            if (arr[i] == 1) {
-                answer += ++plus;
-            } else {
-                plus = 0;
+        int max = 0;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] > max) {
+                answer++;
+                max = arr[i];
             }
         }
         return answer;
@@ -23,6 +22,6 @@ public class P7 {
         for (int i = 0; i < n; i++) {
             arr[i] = sc.nextInt();
         }
-        System.out.println(solution(n, arr));
+        System.out.println(solution(arr));
     }
 }

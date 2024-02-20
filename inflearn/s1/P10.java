@@ -1,4 +1,4 @@
-package org.example.inflearn.string;
+package org.example.inflearn.s1;
 
 import java.util.ArrayList;
 import java.util.HashSet;
