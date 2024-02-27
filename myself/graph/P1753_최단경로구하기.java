@@ -1,4 +1,4 @@
-package org.example.graph;
+package org.example.myself.graph;
 
 import java.io.BufferedReader;
 import java.io.IOException;

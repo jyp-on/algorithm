@@ -1,4 +1,4 @@
-package org.example.number;
+package org.example.myself.number;
 
 import java.util.Scanner;
 

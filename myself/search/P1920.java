@@ -1,4 +1,4 @@
-package org.example.search;
+package org.example.myself.search;
 
 import java.util.Arrays;
 import java.util.Scanner;
