@@ -9,7 +9,7 @@ class Node {
     }
 }
 
-public class P5_이진트리탐색 {
+public class P5_이진트리탐색_DFS {
     public static void dfs(Node node) {
         if(node==null) return;
         else {
