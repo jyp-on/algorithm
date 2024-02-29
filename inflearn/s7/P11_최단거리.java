@@ -12,7 +12,8 @@ public class P11_최단거리 {
     public static int BFS(int v) {
         visited=new int[n+1];
         dis=new int[n+1];
-        visited[1]=1;
+
+        visited[v]=1;
 
         Queue<Integer> Q = new LinkedList<>();
         Q.offer(1);
