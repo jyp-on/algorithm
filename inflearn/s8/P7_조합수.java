@@ -9,11 +9,10 @@ public class P7_조합수 {
         if(rr==0 || (nn==rr)) return 1;
         if(dp[nn][rr] != 0) return dp[nn][rr];
         else {
-            int t = DFS(nn-1, rr-1) + DFS(nn-1, rr);
-            dp[nn][rr]=t;
+            int t = DFS(nn - 1, rr - 1) + DFS(nn - 1, rr);
+            dp[nn][rr] = t;
             return t;
         }
-
     }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
