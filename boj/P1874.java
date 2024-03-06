@@ -1,4 +1,4 @@
-package org.example.myself.datastructure;
+package org.example.boj;
 
 import java.util.Scanner;
 import java.util.Stack;

@@ -1,4 +1,4 @@
-package org.example.myself.graph;
+package org.example.boj;
 
 import java.util.Scanner;
 

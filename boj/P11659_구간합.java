@@ -1,4 +1,4 @@
-package org.example.myself.datastructure;
+package org.example.boj;
 
 import java.io.BufferedReader;
 import java.io.IOException;

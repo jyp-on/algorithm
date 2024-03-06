@@ -1,4 +1,4 @@
-package org.example.myself.sort;
+package org.example.boj;
 
 import java.util.Scanner;
 

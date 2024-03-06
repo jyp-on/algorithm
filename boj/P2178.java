@@ -1,4 +1,4 @@
-package org.example.myself.search;
+package org.example.boj;
 
 import java.io.BufferedReader;
 import java.io.IOException;
