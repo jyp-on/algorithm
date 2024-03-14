@@ -44,10 +44,10 @@ public class P2 {
 
     public static void main(String[] args){
         P2 T = new P2();
-        System.out.println(T.solution("3(a2(b))ef"));
-        System.out.println(T.solution("2(ab)k3(bc)"));
-        System.out.println(T.solution("2(ab3((cd)))"));
-        System.out.println(T.solution("2(2(ab)3(2(ac)))"));
-        System.out.println(T.solution("3(ab2(sg))"));
+//        System.out.println(T.solution("3(a2(b))ef"));
+//        System.out.println(T.solution("2(ab)k3(bc)"));
+//        System.out.println(T.solution("2(ab3((cd)))"));
+//        System.out.println(T.solution("2(2(ab)3(2(ac)))"));
+//        System.out.println(T.solution("3(ab2(sg))"));
     }
 }
