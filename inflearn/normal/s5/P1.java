@@ -8,7 +8,7 @@ class P1 {
         int n = nums.length;
 //        for(int x : nums) System.out.print(x + " ");
         int s = 0, e = n-1;
-        while(s<e){
+        while(s<=e){
             if(nums[s]+nums[e]<=m){
                 answer++;
                 s++;
