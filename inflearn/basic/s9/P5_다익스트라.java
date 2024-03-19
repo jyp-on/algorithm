@@ -22,15 +22,18 @@ public class P5_다익스트라 {
         PriorityQueue<Edge> pQ = new PriorityQueue<>();
         pQ.offer(new Edge(v, 0));
         dist[v]=0;
+
         while(!pQ.isEmpty()){
             Edge tmp = pQ.poll();
             int now = tmp.v;
             int nowCost = tmp.cost;
+
+            // nowCost가 v까지 가는 거리보다 클 경우 볼 필요 없음
             if(nowCost>dist[now]) continue;
-            for(Edge ob : graph.get(now)){
-                if(dist[ob.v]>nowCost+ob.cost){
+            for(Edge ob : graph.get(now)){ // now와 연결된 정점
+                if(dist[ob.v]>nowCost+ob.cost){ // 현재까지 오는 비용과  ob 까지 가는 비용을 더한게 dist[ob.v] 보다 작다면 update
                     dist[ob.v]=nowCost+ob.cost;
-                    pQ.offer(new Edge(ob.v, nowCost+ob.cost));
+                    pQ.offer(new Edge(ob.v, nowCost+ob.cost)); // v까지 가는데 드는 비용 pQ에 추가
                 }
             }
         }
@@ -51,7 +54,7 @@ public class P5_다익스트라 {
             int c=sc.nextInt();
             graph.get(a).add(new Edge(b, c));
         }
-        solution(1);
+        solution(1); // 출발노드
         for(int i=2; i<=n; i++){
             if(dist[i]!=Integer.MAX_VALUE) System.out.println(i+" : "+dist[i]);
             else System.out.println("impossible");
