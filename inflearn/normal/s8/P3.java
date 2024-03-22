@@ -16,27 +16,22 @@ class P3 {
         }
         PriorityQueue<int[]> pq = new PriorityQueue<>((a , b) -> a[2] - b[2]);
         pq.offer(new int[]{0, 0, 0});
-//        int[][] ch = new int[row][col];
-//        ch[0][0] = 1;
         while(!pq.isEmpty()) {
-            int len = pq.size();
-            for(int i = 0; i < len; i++) {
-                int[] cur = pq.poll(); // 현재 위치
-                int y = cur[0];
-                int x = cur[1];
-                int nowCost = cur[2];
-                if(dist[y][x] < nowCost) continue; // y, x까지 가는 비용이 기존보다 크면 볼필요 없음
-                for(int j = 0; j < 4; j++) {
-                    int ny = y + dy[j];
-                    int nx = x + dx[j];
-                    if(ny >= 0 && ny < row && nx >= 0 && nx < col) {
-                        int nextCost;
-                        if(board[ny][nx] == 0) nextCost = nowCost + 0;
-                        else nextCost = nowCost + 1;
-                        if(dist[ny][nx] > nextCost) {
-                            dist[ny][nx] = nextCost;
-                            pq.offer(new int[]{ny, nx, dist[ny][nx]});
-                        }
+            int[] cur = pq.poll(); // 현재 위치
+            int y = cur[0];
+            int x = cur[1];
+            int nowCost = cur[2];
+            if(dist[y][x] < nowCost) continue; // y, x까지 가는 비용이 기존보다 크면 볼필요 없음
+            for(int j = 0; j < 4; j++) {
+                int ny = y + dy[j];
+                int nx = x + dx[j];
+                if(ny >= 0 && ny < row && nx >= 0 && nx < col) {
+                    int nextCost;
+                    if(board[ny][nx] == 0) nextCost = nowCost + 0;
+                    else nextCost = nowCost + 1;
+                    if(dist[ny][nx] > nextCost) {
+                        dist[ny][nx] = nextCost;
+                        pq.offer(new int[]{ny, nx, dist[ny][nx]});
                     }
                 }
             }
