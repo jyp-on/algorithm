@@ -1,0 +1,39 @@
+import java.util.*;
+class Solution {
+    int max_hp;
+
+    public int heal(int cur_h, int h) {
+        if(cur_h + h <= max_hp) return cur_h + h;
+        else return cur_h = max_hp; // 최대체력을 넘는다면 최대체력까지만 회복
+    }
+    public int solution(int[] bandage, int health, int[][] attacks) {
+        max_hp = health;
+        int n = attacks.length;
+        int cur_h = max_hp; // 현재체력
+        int t = bandage[0]; // 시전시간
+        int x = bandage[1]; // 초당회복량
+        int y = bandage[2]; // 추가회복량
+
+        int time = 1;
+        int attack_idx = 0;
+        int t_cnt = 0; // 기술 시전 횟수
+        while(time <= attacks[n-1][0]) {
+            if(time == attacks[attack_idx][0]) { // 몬스터의 공격차례
+                if(cur_h - attacks[attack_idx][1] <= 0) return -1;
+                cur_h -= attacks[attack_idx][1];
+                t_cnt = 0; // 몬스터의 공격으로 t_cnt 0으로 초기화
+                attack_idx++;
+            } else { // 공격받지 않으면 회복
+                cur_h = heal(cur_h, x);
+                t_cnt++;
+                if(t_cnt >= t) {
+                    cur_h = heal(cur_h, y);
+                    t_cnt = 0;
+                }
+            }
+            time++;
+        }
+
+        return cur_h;
+    }
+}
