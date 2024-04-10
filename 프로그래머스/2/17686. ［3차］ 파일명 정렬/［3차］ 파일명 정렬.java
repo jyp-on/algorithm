@@ -3,45 +3,39 @@ class Solution {
     public static String[] solution(String[] files) {
         Arrays.sort(files, new Comparator<String>() {
             @Override
-            public int compare(String o1, String o2) {
-                String[] file1 = separationOfFile(o1);
-                String[] file2 = separationOfFile(o2);
- 
-                int result = file1[0].compareTo(file2[0]);
- 
-                // head 값이 서로 같다면 number 값으로 비교
-                if (result == 0) {
-                    int number1 = Integer.parseInt(validateNumber((file1[1])));
-                    int number2 = Integer.parseInt(validateNumber((file2[1])));
-                    return number1 - number2;
+            public int compare(String fileA, String fileB) {
+                String[] s_fileA = seperateHeadAndNumber(fileA);
+                String[] s_fileB = seperateHeadAndNumber(fileB);
+                int res = s_fileA[0].compareTo(s_fileB[0]);
+                
+                if(res == 0) { // 헤더가 같은 경우
+                    int a = Integer.parseInt(validateNumber(s_fileA[1]));
+                    int b = Integer.parseInt(validateNumber(s_fileB[1]));
+                    return a - b;
                 }
-                return result;
+                
+                return res;
             }
         });
  
         return files;
     }
- 
-    public static String[] separationOfFile(String file) {
-        file = file.toLowerCase();
- 
+    
+    public static String[] seperateHeadAndNumber(String file) {
+        file = file.toUpperCase();
         String head = file.split("[0-9]")[0];
         String number = file.substring(head.length());
-        String[] separateFile = {head, number};
-        return separateFile;
+        return new String[]{head, number};
     }
- 
-    private static String validateNumber(String number) {
+    
+    public static String validateNumber(String number) {
         StringBuilder sb = new StringBuilder();
-        for (char c : number.toCharArray()) {
-            // 숫자이고 길이가 5를 넘어가지 않는다면
-            if (Character.isDigit(c) && sb.length() <= 5) {
-                sb.append(c);
-            } else {
-                return sb.toString();
-            }
+        for(int i = 0; i < number.length(); i++) {
+            if(i < 5 && Character.isDigit(number.charAt(i))) {
+                sb.append(number.charAt(i));
+            } else break;
         }
- 
         return sb.toString();
     }
+ 
 }
