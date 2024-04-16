@@ -5,15 +5,10 @@ class Solution {
         PriorityQueue<Integer> pq = new PriorityQueue<>((a, b) -> a - b);
         int ans_idx = 0;
         for(int s : score) {
-            if(pq.size() < k) {
-                pq.offer(s);
-            }
-            else {
-                if(pq.peek() < s) {
-                    pq.poll();
-                    pq.offer(s);
-                }
-            }
+            pq.offer(s);
+            if(pq.size() > k)
+                pq.poll();
+            
             answer[ans_idx++] = pq.peek();
         }
         return answer;
