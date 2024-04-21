@@ -19,7 +19,7 @@ class Solution {
             } else {
                 if(!main.isEmpty()) 
                     sub.add(main.pop());
-                else 
+                else // main이 비어있고 sub의 peek도 order에 맞는게 없다면 더이상 상자를 못 받음
                     break;
             }
         }
