@@ -4,7 +4,6 @@ class Solution {
         int sum = brown + yellow;
         for(int col=3; col<sum; col++) {
             int row = sum / col;
-            if(row < 3) continue;
             if((row-2) * (col-2) == yellow) {
                 return new int[]{row, col};
             }
