@@ -43,12 +43,10 @@ public class Main {
        }
 
         for(int i = start; i < arr.length; i++) {
-            if((int)arr[i] > (int)res.charAt(res.length()-1)) {
-                if(!visit[i]) {
-                    visit[i] = true;
-                    DFS(i+1,res+arr[i]);
-                    visit[i] = false;
-                }
+            if(!visit[i]) {
+                visit[i] = true;
+                DFS(i+1,res+arr[i]);
+                visit[i] = false;
             }
         }
     }
