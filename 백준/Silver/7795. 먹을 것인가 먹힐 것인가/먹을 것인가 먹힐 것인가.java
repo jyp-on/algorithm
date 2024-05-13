@@ -20,15 +20,26 @@ public class Main {
             for(int j=0;j<M;j++){
                 B[j] = Integer.parseInt(st.nextToken());
             }
-            Arrays.sort(A);
-            Arrays.sort(B);
 
+            Arrays.sort(B);
             int cnt = 0;
-            for(int j=0;j<N;j++){
-                for(int k=0;k<M;k++){
-                    if(A[j]>B[k]) cnt++;
-                    else break;
+
+            for (int j = 0; j < N; j++) {
+                int first = 0;
+                int end = M - 1;
+                int index = 0;
+
+                while (first <= end) {
+                    int mid = (first + end) / 2;
+                    if (B[mid] < A[j]) {
+                        first = mid + 1;
+                        index = mid + 1;
+                    }
+                    else {
+                        end = mid - 1;
+                    }
                 }
+                cnt += index;
             }
 
             System.out.println(cnt);
