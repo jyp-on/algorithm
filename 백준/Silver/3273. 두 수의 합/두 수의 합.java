@@ -14,15 +14,13 @@ public class Main {
         int x = Integer.parseInt(br.readLine());
         Arrays.sort(arr);
 
-        int cnt = 0;
-        for(int i = 0; i < n; i++) {
-            for(int j = i + 1; j < n; j++) {
-                int sum = arr[i] + arr[j];
-                if(sum == x)
-                    cnt++;
-                else if(sum > x)
-                    break;
-            }
+        int lt=0, rt = n-1, cnt=0;
+        while(lt<rt) {
+            int sum = arr[lt] + arr[rt];
+            if(sum == x) cnt++;
+
+            if(sum > x) rt--;
+            else lt++;
         }
 
         System.out.println(cnt);
