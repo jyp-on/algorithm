@@ -12,34 +12,25 @@ public class Main {
             arr[i] = Integer.parseInt(st.nextToken());
         }
 
-        int[] answer = new int[2];
+        int[] res = new int[2];
         int minInterval = Integer.MAX_VALUE;
         Arrays.sort(arr);
         int lt = 0, rt = N-1;
 
         while(lt < rt) {
-            if(arr[lt] + arr[rt] < 0) { // 합이 0보다 작으면 0에 가깝게 하기 위해 lt ++
-                if(Math.abs(arr[lt] + arr[rt]) < minInterval) {
-                    minInterval = Math.abs(arr[lt] + arr[rt]);
-                    answer[0] = arr[lt];
-                    answer[1] = arr[rt];
-                }
-                lt++;
-            } else if(arr[lt] + arr[rt] > 0) { // 합이 0보다 크면 0에 가깝게 하기 위해 rt --
-                if(Math.abs(arr[lt] + arr[rt]) < minInterval) {
-                    minInterval = Math.abs(arr[lt] + arr[rt]);
-                    answer[0] = arr[lt];
-                    answer[1] = arr[rt];
-                }
-                rt--;
-            } else {
-                answer[0] = arr[lt];
-                answer[1] = arr[rt];
-                break;
+            int sum = arr[lt] + arr[rt];
+
+            if(Math.abs(sum) < minInterval) {
+                minInterval = Math.abs(sum);
+                res[0] = arr[lt];
+                res[1] = arr[rt];
+                if(sum == 0) break;
             }
+
+            if(sum < 0) lt++;
+            else rt--;
         }
 
-        Arrays.sort(answer);
-        System.out.println(answer[0] + " " + answer[1]);
+        System.out.println(res[0] + " " + res[1]);
     }
 }
