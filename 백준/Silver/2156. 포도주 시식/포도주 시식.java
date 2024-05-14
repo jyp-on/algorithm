@@ -7,8 +7,8 @@ public class Main {
 //        StringTokenizer st;
         Scanner sc = new Scanner(System.in);
         int N = sc.nextInt();
-        int[] arr = new int[10010];
-        int[] DP = new int[10010];
+        int[] arr = new int[N+2];
+        int[] DP = new int[N+2];
         for(int i=1; i<=N; i++) {
             arr[i] = sc.nextInt();
         }
