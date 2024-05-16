@@ -1,7 +1,5 @@
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.IOException;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
 public class Main {
 
@@ -21,7 +19,7 @@ public class Main {
         W = new int[N];
         V = new int[N];
 
-        dp = new int[N][K + 1];
+        dp = new int[N][K + 1]; // 현재 몇번째 물건까지 탐색했는지, 현재 용량
 
         for (int i = 0; i < N; i++) {
             st = new StringTokenizer(br.readLine(), " ");
@@ -34,24 +32,19 @@ public class Main {
     }
 
     // i는 현재 물건의 idx, k는 배낭에 남은 무게
-    static int knapsack(int i, int k) {
-        // i가 0미만, 즉 범위 밖이 된다면
-        if (i < 0)
+    static int knapsack(int idx, int k) {
+        if(idx<0)
             return 0;
 
-        // 탐색하지 않은 위치라면?
-        if (dp[i][k] == 0) {
-
-            // 현재 물건(i)을 추가로 못담는 경우 (이전 i값 탐색)
-            if(W[i] > k) {
-                dp[i][k] = knapsack(i - 1, k);
-            }
-            // 현재 물건(i)을 담을 수 있는 경우
-            else {
-                // 이전 i값과 이전 i값에 대해 현재 가치(V[i])를 더한 것 중 큰 값을 저장
-                dp[i][k] = Math.max(knapsack(i - 1, k), knapsack(i - 1, k - W[i]) + V[i]);
+        if(dp[idx][k] == 0) { // 탐색하지 않은 경우
+            if(W[idx] <= k) { // idx에 해당하는 물건을 가방에 담을 수 있다면
+                // 현재 물건을 고르지 않은경우와 고른경우 중 MAX값 선택
+                dp[idx][k] = Math.max(knapsack(idx - 1, k), knapsack(idx - 1, k - W[idx]) + V[idx]);
+            } else {
+                dp[idx][k] = knapsack(idx - 1, k);
             }
         }
-        return dp[i][k];
+
+        return dp[idx][k];
     }
 }
