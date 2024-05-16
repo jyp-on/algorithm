@@ -3,50 +3,47 @@ import java.util.*;
 
 public class Main {
 
-    static int R, C, answer;
-    static char[][] board;
-    static int[] dr = {0, 0, -1, 1};
-    static int[] dc = {-1, 1, 0, 0};
-    static boolean[][] visit;
+    static int r, c;
+    static int[][] board;
+    static int[] dx = {-1, 0, 1, 0};
+    static int[] dy = {0, 1, 0, -1};
+    static int max = 0;
+    static boolean[] alpha;
 
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
 
-        R = Integer.parseInt(st.nextToken());
-        C = Integer.parseInt(st.nextToken());
-        board = new char[R][C];
-        visit = new boolean[R][C];
-        answer = 0;
+        r = scan.nextInt();
+        c = scan.nextInt();
+        scan.nextLine();
 
-        for(int i=0; i<R; i++) {
-            char[] arr = br.readLine().toCharArray();
-            for(int j=0; j<C; j++) {
-                board[i][j] = arr[j];
+        //board를 입력받는다.
+        board = new int[r][c];
+        for(int i = 0; i < r; i++) {
+            String str = scan.nextLine();
+            for(int j = 0; j < c; j++) {
+                board[i][j] = str.charAt(j) - 'A';
             }
         }
 
-        Set<Character> set = new HashSet<>();
-        set.add(board[0][0]);
-        DFS(0, 0, 1, set);
-        System.out.println(answer);
+        alpha = new boolean[26]; //알파벳을 이전에 방문했는지 여부 체크.
+        backtracking(0, 0, 1);
+        System.out.println(max);
     }
 
-    static void DFS(int r, int c, int cnt, Set<Character> set) {
-        answer = Math.max(answer, cnt);
+    public static void backtracking(int x, int y, int len) {
+        alpha[board[x][y]] = true;
+        max = Math.max(max, len);
 
-        for(int i=0; i<4; i++) {
-            int nr = r + dr[i];
-            int nc = c + dc[i];
-            if(nr < 0 || nr >= R || nc < 0 || nc >= C) continue;
-            if(set.contains(board[nr][nc])) continue;
-            if(visit[nr][nc]) continue;
-
-            set.add(board[nr][nc]);
-            visit[nr][nc] = true;
-            DFS(nr, nc, cnt+1, set);
-            visit[nr][nc] = false;
-            set.remove(board[nr][nc]);
+        for(int i = 0; i < 4; i++) {
+            int nx = x + dx[i];
+            int ny = y + dy[i];
+            if(nx >= 0 && ny >= 0 && nx < r && ny < c) {
+                if(alpha[board[nx][ny]] == false) {
+                    backtracking(nx, ny, len + 1);
+                    alpha[board[nx][ny]] = false;
+                }
+            }
         }
     }
 }
