@@ -5,9 +5,8 @@ public class Main {
 
     static int n, m;
     static int[] arr, ans;
-    static StringBuilder sb = new StringBuilder();
-    static Set<String> set = new HashSet<>();
     static boolean[] visit;
+    static StringBuilder sb = new StringBuilder();
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
@@ -21,25 +20,29 @@ public class Main {
             arr[i] = Integer.parseInt(st.nextToken());
         }
         Arrays.sort(arr);
-        StringBuilder sb = new StringBuilder();
-        select(0, sb);
+        select(0);
+        System.out.println(sb);
     }
 
-    static void select(int depth, StringBuilder sb) {
+    static void select(int depth) {
         if(depth==m) {
-            if(!set.contains(sb.toString())) {
-                set.add(sb.toString());
-                System.out.println(sb.toString());
+            for(int i=0; i<m; i++) {
+                sb.append(ans[i]).append(" ");
             }
+            sb.append("\n");
             return;
         }
 
+        int prev = 0;
+
         for(int i=0; i<n; i++) {
-            if(!visit[i]) {
+            if(visit[i]) continue;
+
+            if(prev != arr[i]) {
                 visit[i] = true;
-                sb.append(arr[i]).append(" ");
-                select(depth+1, sb);
-                sb.delete(sb.length()-String.valueOf(arr[i]).length()-1, sb.length());
+                prev = arr[i];
+                ans[depth] = arr[i];
+                select(depth+1);
                 visit[i] = false;
             }
         }
