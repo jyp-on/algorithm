@@ -1,14 +1,14 @@
 import java.util.*;
  
 class Solution {
-    
     int N;
-    int [][][] visited;
-    int[][] d = {{1,0},{-1,0},{0,1},{0,-1}};
+    boolean[][][] visited;
+    int[] dx = {0, 0, -1, 1};
+    int[] dy = {-1, 1, 0, 0};
     
     public int solution(int[][] board) {
         N = board.length;
-        visited = new int[N][N][4];
+        visited = new boolean[N][N][4]; // 방향에 대해서도 메모이제이션
 
         return bfs(board);
     }
@@ -16,51 +16,47 @@ class Solution {
     public int bfs(int[][] board) {
         int x=0, y=0, direction=-1, cost=0;
         Queue<Node> q = new LinkedList<>();
-        q.add(new Node(y,x,direction,cost));
-
+        q.add(new Node(x, y, direction, cost));
+        
         int min_cost = Integer.MAX_VALUE;
-
         while(!q.isEmpty()) {
-            Node now = q.poll();
-
-            if(now.r == N-1 && now.c == N-1) {
-                min_cost = Math.min(min_cost,now.cost);
+            Node cur = q.poll();
+            if(cur.x == N-1 && cur.y == N-1) {
+                min_cost = Math.min(min_cost, cur.cost);
+                continue;
             }
-
+            
             for(int dir=0; dir<4; dir++) {
-                int dr = now.r + d[dir][0];
-                int dc = now.c + d[dir][1];
-
-                if(dr<0 || dr >= N || dc<0 || dc >= N || board[dr][dc] == 1) {
-                    continue;
-                }
-
-                int nextCost = now.cost;
-                if(now.dir == -1 || now.dir == dir) { 
-                    //처음이라 비교대상이 없는 경우엔 무조건 100원만 추가,
-                    //이전과 같은 방향인 경우에도 100원 추가
+                int nx = cur.x + dx[dir];
+                int ny = cur.y + dy[dir];
+                if(nx<0 || nx>=N || ny<0 || ny>=N) continue;
+                if(board[nx][ny] == 1) continue;
+                
+                int nextCost = cur.cost;
+                if(cur.dir == -1 || cur.dir == dir) {
                     nextCost += 100;
-                }
-                else {
+                } else {
                     nextCost += 600;
                 }
-
-                if(visited[dr][dc][dir] == 0 || board[dr][dc] >= nextCost) {
-                    q.add(new Node(dr,dc,dir,nextCost));
-                    visited[dr][dc][dir] = 1;
-                    board[dr][dc] = nextCost;
+                
+                // 방문하지 않았거나 || cost가 더 적게 갱신된다면 방문
+                if(!visited[nx][ny][dir] || board[nx][ny] >= nextCost) {
+                    visited[nx][ny][dir] = true;
+                    q.add(new Node(nx, ny, dir, nextCost));
+                    board[nx][ny] = nextCost;
                 }
             }
         }
+
         return min_cost;
     }
 
     public class Node {
-        int r, c, dir, cost;
+        int x, y, dir, cost;
 
-        public Node(int r, int c, int dir, int cost) {
-            this.r = r;
-            this.c = c;
+        public Node(int x, int y, int dir, int cost) {
+            this.x = x;
+            this.y = y;
             this.dir = dir;
             this.cost = cost;
         }
