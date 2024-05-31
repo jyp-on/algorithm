@@ -23,20 +23,14 @@ class Solution {
         }
     }
     
-    // 11 12 13 14
-    // 21 22 23 24
-    // 31 32 33 34
-    // 41 42 43 44
-    
     boolean check(int col) {
         for(int i=1; i<col; i++) {
             if(arr[i] == arr[col]) { // 행 겹치는 경우
                 return false;
             }
-            if(Math.abs(i-col) == Math.abs(arr[i]-arr[col])) {
+            if(Math.abs(i-col) == Math.abs(arr[i]-arr[col])) { // 대각선 겹치는 경우
                 return false;
             }
-            
         }
         
         return true;
