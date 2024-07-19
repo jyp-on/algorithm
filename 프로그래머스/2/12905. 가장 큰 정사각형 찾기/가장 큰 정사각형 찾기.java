@@ -12,16 +12,15 @@ class Solution
         for(int i=0; i<row_size; i++) {
             for(int j=0; j<col_size; j++) {
                 if(board[i][j] == 1) {
-                    // 첫 행이나 첫 열은 그대로 사용
+                    // 첫 행과 첫 열은 이전과 비교할 수 없으니 1로 초기화
                     if(i == 0 || j == 0) {
                         dp[i][j] = 1;
                     } else {
-                        // (i, j)를 우하단으로 하는 가장 큰 정사각형의 한 변의 길이
-                        dp[i][j] = Math.min(Math.min(dp[i-1][j], dp[i][j-1]), dp[i-1][j-1]) + 1;
+                        // 위, 옆, 대각선 뒤 중 최솟값에 + 1
+                        dp[i][j] = Math.min(dp[i-1][j-1], Math.min(dp[i-1][j], dp[i][j-1])) + 1;
                     }
-                    // 최대 정사각형의 한 변의 길이 업데이트
-                    maxSquareSize = Math.max(maxSquareSize, dp[i][j]);
                 }
+                maxSquareSize = Math.max(maxSquareSize, dp[i][j]);
             }
         }
         
