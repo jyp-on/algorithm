@@ -16,6 +16,7 @@ public class Main {
             list.add(i);
         }
 
+        // 요세푸스 문제 해결
         StringBuilder sb = new StringBuilder();
         sb.append("<");
         int index = 0; // 현재 인덱스
