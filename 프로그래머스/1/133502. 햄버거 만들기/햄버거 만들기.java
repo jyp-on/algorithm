@@ -5,7 +5,7 @@ class Solution {
         Stack<Integer> stack = new Stack<>();
         for(int i = 0; i < ingredient.length; i++) {
             int ing = ingredient[i];
-            // 비어있거나 3개 이하면 push
+            // 3개 미만이면 현재 재료 포함해도 4개가 안되니 push
             if(stack.size() < 3) stack.push(ing);
             else { 
                 if(ing == 1) { // 빵인 경우 밑에 3개로 햄버거 만들 수 있는지 체크
