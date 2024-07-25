@@ -4,47 +4,43 @@ import java.io.InputStreamReader;
 import java.util.*;
 
 public class Main {
-    static Map<Character, Integer> input = new HashMap<>();
-    static Map<Character, Integer> target = new HashMap<>();
+
+    static int[] count = new int[26];
+
+    // 하나라도 1 이상이면 false
+    static boolean check() {
+        return !(count[0] > 0 || count[2] > 0 || count[6] > 0 || count[19] > 0);
+    }
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
+
         int S = Integer.parseInt(st.nextToken());
         int P = Integer.parseInt(st.nextToken());
+
         char[] str = br.readLine().toCharArray();
         st = new StringTokenizer(br.readLine());
-        int answer = 0;
 
-        target.put('A', Integer.parseInt(st.nextToken()));
-        target.put('C', Integer.parseInt(st.nextToken()));
-        target.put('G', Integer.parseInt(st.nextToken()));
-        target.put('T', Integer.parseInt(st.nextToken()));
+        count[0] = Integer.parseInt(st.nextToken());
+        count[2] = Integer.parseInt(st.nextToken());
+        count[6] = Integer.parseInt(st.nextToken());
+        count[19] = Integer.parseInt(st.nextToken());
 
+        int ans = 0;
         for(int i=0; i<P; i++) {
-            input.put(str[i], input.getOrDefault(str[i], 0) + 1);
+            count[str[i]-'A']--;
         }
 
-        int p1 = 0, p2 = P;
-        if(check()) answer++;
+        if(check()) ans++;
 
-        while(p2 < S) {
-            input.put(str[p1], input.get(str[p1])-1);
-            if(input.get(str[p1]) == 0) input.remove(str[p1]);
-            p1++;
+        for(int i=0; i<S-P; i++) {
+            count[str[i]-'A']++;
+            count[str[i+P]-'A']--;
 
-            input.put(str[p2], input.getOrDefault(str[p2], 0) + 1);
-            p2++;
-
-            if(check()) answer++;
+            if(check()) ans++;
         }
 
-        System.out.println(answer);
-    }
-
-    static boolean check() {
-        for(char c : target.keySet()) {
-            if(input.getOrDefault(c, 0) < target.get(c)) return false;
-        }
-        return true;
+        System.out.println(ans);
     }
 }
