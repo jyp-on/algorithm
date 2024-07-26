@@ -1,25 +1,31 @@
-import java.io.*;
 import java.util.*;
+import java.io.*;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
-//        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-//        StringTokenizer st;
+    public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int N = sc.nextInt();
-        int[] arr = new int[N+2];
-        int[] DP = new int[N+2];
-        for(int i=1; i<=N; i++) {
+        int n = sc.nextInt();
+        int[] arr = new int[n];
+        int[] dp = new int[n];
+        for(int i=0; i<n; i++) {
             arr[i] = sc.nextInt();
         }
 
-        DP[1] = arr[1];
-        DP[2] = DP[1] + arr[2];
-
-        for(int i=3; i<=N; i++) {
-            DP[i] = Math.max(Math.max(DP[i-2] + arr[i], DP[i-3] + arr[i-1] + arr[i]), DP[i-1]);
+        if(n <= 3) {
+            if(n == 1) System.out.println(arr[0]);
+            if(n == 2) System.out.println(arr[0] + arr[1]);
+            if(n == 3) System.out.println(Math.max(arr[0] + arr[1], Math.max(arr[0] + arr[2], arr[1] + arr[2])));
+            System.exit(0);
         }
 
-        System.out.println(DP[N]);
+        dp[0] = arr[0];
+        dp[1] = arr[0] + arr[1];
+        dp[2] = Math.max(arr[0] + arr[1], Math.max(arr[0] + arr[2], arr[1] + arr[2]));
+
+        for(int i=3; i<n; i++) {
+            dp[i] = Math.max(dp[i-1], Math.max(dp[i-2] + arr[i], dp[i-3] + arr[i-1] + arr[i]));
+        }
+
+        System.out.println(dp[n-1]);
     }
 }
