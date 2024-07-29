@@ -51,7 +51,7 @@ public class Main {
 
         StringBuilder sb = new StringBuilder();
         for(Person p : persons) {
-            sb.append(p.name + " ");
+            sb.append(p.name + "\n");
         }
 
         System.out.println(sb);
