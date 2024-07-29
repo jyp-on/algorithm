@@ -49,8 +49,11 @@ public class Main {
             }
         });
 
+        StringBuilder sb = new StringBuilder();
         for(Person p : persons) {
-            System.out.println(p.name);
+            sb.append(p.name + " ");
         }
+
+        System.out.println(sb);
     }
 }
