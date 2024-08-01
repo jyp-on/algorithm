@@ -1,33 +1,33 @@
-import java.io.*;
-import java.util.*;
+import java.util.Scanner;
 
 public class Main {
-    final static long mod = 1000000000;
-    public static void main(String[] args) throws IOException {
-//        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-//        StringTokenizer st;
+    public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int N = sc.nextInt();
-        long[][] DP = new long[N+1][10]; // [자리 수][앞에오는 숫자] = 경우의 수
-        for(int i=1;i<10;i++) {
-            DP[1][i] = 1;
+        long[][] dp = new long[N + 1][10];
+        final int MOD = 1000000000;
+
+        for (int i = 1; i < 10; i++) {
+            dp[1][i] = 1;
         }
 
-        for(int i=2;i<N+1;i++) {
-            for(int j=0;j<10;j++) {
-                if(j==0)
-                    DP[i][j] = DP[i-1][1] % mod;
-                else if(j==9)
-                    DP[i][j] = DP[i-1][8] % mod;
-                else
-                    DP[i][j] = (DP[i-1][j-1] + DP[i-1][j+1]) % mod;
+        for (int i = 2; i <= N; i++) {
+            for (int j = 0; j < 10; j++) {
+                if (j == 0) {
+                    dp[i][0] = dp[i-1][1] % MOD;
+                } else if (j == 9) {
+                    dp[i][9] = dp[i-1][8] % MOD;
+                } else {
+                    dp[i][j] = (dp[i-1][j-1] + dp[i-1][j+1]) % MOD;
+                }
             }
         }
 
-        long res = 0;
-        for(int i=0; i<10; i++) {
-            res += DP[N][i];
+        long sum = 0;
+        for (int i = 0; i < 10; i++) {
+            sum = (sum + dp[N][i]) % MOD;
         }
-        System.out.println(res % mod);
+
+        System.out.println(sum);
     }
 }
