@@ -1,34 +1,31 @@
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.Arrays;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int n = Integer.parseInt(br.readLine());
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		int N = Integer.parseInt(br.readLine());
+		String[] words = new String[N];
+		for (int i = 0; i < N; i++) {
+			words[i] = br.readLine();
+		}
+		Arrays.sort(words);
+		int max = 0;
+		for (int i = 0; i < N - 1; i++) {
+			if (!isPrefix(words[i], words[i + 1])) {
+				max++;
+			}
+		}
+		System.out.println(max + 1);
+	}
 
-        String[] arr = new String[n];
-        for(int i = 0; i < n; i++) {
-            arr[i] = br.readLine();
-        }
-
-        // 길이 내림차순 정렬
-        Arrays.sort(arr, (s1, s2) -> s2.length() - s1.length());
-        List<String> list = new ArrayList<>();
-        list.add(arr[0]);
-
-        for(int i = 1; i < n; i++) {
-            boolean flag = true;
-            for(String s : list) {
-                if(s.startsWith(arr[i])) {
-                    flag = false;
-                    break;
-                }
-            }
-            if(flag) list.add(arr[i]);
-        }
-
-        System.out.println(list.size());
-    }
+	public static boolean isPrefix(String prefix, String word) {
+		for (int i = 0; i < prefix.length(); i++) {
+			if (prefix.charAt(i) != word.charAt(i)) {
+				return false;
+			}
+		}
+		return true;
+	}
 }
