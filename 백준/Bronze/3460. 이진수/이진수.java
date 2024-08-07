@@ -1,27 +1,31 @@
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
-class Main {
+public class Main {
     static StringBuilder sb = new StringBuilder();
-    
-    static void binary(int num, int idx) {
-        if(num == 0) return;
-        if(num % 2 == 1) sb.append(idx).append(" ");
-        binary(num / 2, idx + 1);
+    static StringBuilder answer = new StringBuilder();
+    public static void recursive(int n) {
+        if (n == 0) return;
+        int mod = n % 2;
+        sb.append(mod);
+        recursive(n / 2);
     }
-    
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        
-        int t = Integer.parseInt(br.readLine());
-        for(int i=0; i<t; i++) {
+        int T = Integer.parseInt(br.readLine());
+        for (int i = 0; i < T; i++) {
             int n = Integer.parseInt(br.readLine());
-            binary(n, 0);
-            sb.append("\n");
+            recursive(n);
+            for (int j = 0; j < sb.length(); j++) {
+                if(sb.charAt(j) == '1') {
+                    answer.append(j).append(" ");
+                }
+            }
+            sb.setLength(0);
+            answer.append("\n");
         }
-
-        bw.append(sb.toString());
-        bw.close();
-        br.close();
+        System.out.println(answer.toString());
     }
 }
