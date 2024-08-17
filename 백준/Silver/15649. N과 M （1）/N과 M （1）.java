@@ -1,38 +1,35 @@
-import java.io.*;
 import java.util.*;
-
 public class Main {
     static int N, M;
     static boolean[] visited;
-    static void DFS(int depth, String str) {
-        if(depth == M) {
-            System.out.println(str.replaceFirst(" ", ""));
-        } else {
-            for(int i = 1; i <= N; i++) {
-                if(!visited[i]) {
-                    visited[i] = true;
-                    DFS(depth + 1, str+" "+i);
-                    visited[i] = false;
-                }
+    static int[] output;
+    static StringBuilder sb = new StringBuilder();
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        N = sc.nextInt();
+        M = sc.nextInt();
+        visited = new boolean[N + 1];
+        output = new int[M];
+        DFS(0);
+        System.out.println(sb.toString());
+    }
+
+    static void DFS(int depth) {
+        if (depth == M) {
+            for (int i = 0; i < M; i++) {
+                sb.append(output[i]).append(" ");
+            }
+            sb.append("\n");
+            return;
+        }
+
+        for (int i = 1; i <= N; i++) {
+            if (!visited[i]) {
+                visited[i] = true;
+                output[depth] = i;
+                DFS(depth + 1);
+                visited[i] = false;
             }
         }
     }
-
-    public static void main(String[] args) throws Exception {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        StringTokenizer st;
-        st = new StringTokenizer(br.readLine());
-        N = Integer.parseInt(st.nextToken());
-        M = Integer.parseInt(st.nextToken());
-        visited = new boolean[N + 1];
-        DFS(0, "");
-
-
-//        bw.write(answer.toString() + "\n");
-//        bw.flush();
-//        bw.close();
-//        br.close();
-    }
-
 }
