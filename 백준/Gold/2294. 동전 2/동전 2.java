@@ -5,24 +5,19 @@ import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    private static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    public static void main(String args[]) throws IOException {
         StringTokenizer st = new StringTokenizer(br.readLine());
         int N = Integer.parseInt(st.nextToken());
         int K = Integer.parseInt(st.nextToken());
-
-        int[] coins = new int[N];
-        for (int i = 0; i < N; i++) {
-            coins[i] = Integer.parseInt(br.readLine());
-        }
-
-        int[] dp = new int[K + 1];
-        Arrays.fill(dp, K + 1);
+        int[] P = new int[N+1];
+        int[] dp = new int[K+1]; // 가치의 합이 I일 때 필요한 동전의 최소 개수
+        Arrays.fill(dp, K+1); // Integer.MAX_VALUE 로 하면 OverFlow 발생 !
         dp[0] = 0;
-
-        for (int coin : coins) {
-            for (int j = coin; j <= K; j++) {
-                dp[j] = Math.min(dp[j], dp[j - coin] + 1);
+        for(int i = 1; i <= N; i++) {
+            P[i] = Integer.parseInt(br.readLine());
+            for(int j = P[i]; j <= K; j++) {
+                dp[j] = Math.min(dp[j - P[i]] + 1, dp[j]);
             }
         }
 
