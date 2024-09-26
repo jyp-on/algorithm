@@ -1,41 +1,33 @@
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Main {
+    private static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    public static void main(String args[]) throws IOException {
+        int n = Integer.parseInt(br.readLine());
+        StringTokenizer st = new StringTokenizer(br.readLine());
 
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
-        int N = Integer.parseInt(br.readLine());
-        int[] seq = new int[N];
-        int[] dp = new int[N];
-
-        StringTokenizer st = new StringTokenizer(br.readLine()," ");
-
-        for(int i = 0; i < N; i++) {
-            seq[i] = Integer.parseInt(st.nextToken());
+        int[] arr = new int[n + 1];
+        int[] dp = new int[n + 1]; // i 번째 원소에서 끝나는 가장 긴 부분수열의 길이
+        for (int i = 1; i <= n; i++) {
+            arr[i] = Integer.parseInt(st.nextToken());
         }
 
-        for(int i = 0; i < N; i++) {
+        for (int i = 1; i <= n; i++) {
             dp[i] = 1;
-
-            // 0 ~ i 이전 원소들 탐색
-            for(int j = 0; j < i; j++) {
-
-                // j번째 원소가 i번째 원소보다 작으면서 i번째 dp가 j번째 dp+1 값보다 작은경우
-                if(seq[j] < seq[i] && dp[i] < dp[j] + 1) {
-                    dp[i] = dp[j] + 1;	// j번째 원소의 +1 값이 i번째 dp가 된다.
+            for (int j = 1; j < i; j++) {
+                if (arr[i] > arr[j] && dp[i] < dp[j] + 1) {
+                    dp[i] = dp[j] + 1;
                 }
             }
         }
 
-        // 최댓값(최대 길이) 탐색
-        int max = -1;
-        for(int i = 0; i < N; i++) {
-            max = dp[i] > max ? dp[i] : max;
+        int max = 0;
+        for (int i = 1; i <= n; i++) {
+            max = Math.max(max, dp[i]);
         }
         System.out.println(max);
-
     }
-
 }
