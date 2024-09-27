@@ -2,8 +2,6 @@ import java.util.*;
 import java.io.*;
 
 public class Main {
-//    private static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-//    private static StringTokenizer st;
     static final int MAX = 100001;
     private static final Scanner sc = new Scanner(System.in);
     public static void main(String args[]) throws IOException {
@@ -24,7 +22,7 @@ public class Main {
                 return dist[K];
             }
 
-            // 순간이동은 먼저 검사하기 위해 앞쪽에 추가
+            // 순간이동은 비용이 0이므로 먼저 검사하기 위해 앞쪽에 추가
             if (x*2 < MAX && dist[x*2] == -1) {
                 dist[x*2] = dist[x];
                 q.addFirst(x*2);
@@ -36,8 +34,6 @@ public class Main {
                     q.addLast(nx);  // 걷기는 덱의 뒤쪽에 추가
                 }
             }
-
-
         }
 
         return 0;
