@@ -18,20 +18,18 @@ class Node implements Comparable<Node>{
 
 public class Main {
 
-    static int V, E, S;
-    static List<List<Node>> graph = new ArrayList<>();
-    static int[] dist;
     static final int INF = Integer.MAX_VALUE;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
-        V = Integer.parseInt(st.nextToken());
-        E = Integer.parseInt(st.nextToken());
-        S = Integer.parseInt(br.readLine());
-        dist = new int[V + 1];
+        int V = Integer.parseInt(st.nextToken());
+        int E = Integer.parseInt(st.nextToken());
+        int S = Integer.parseInt(br.readLine());
+        int[] dist = new int[V + 1];
         Arrays.fill(dist, INF);
         dist[S] = 0;
+        List<List<Node>> graph = new ArrayList<>();
 
         for (int i = 0; i <= V; i++) {
             graph.add(new ArrayList<>());
@@ -49,11 +47,13 @@ public class Main {
 
         PriorityQueue<Node> pq = new PriorityQueue<>();
         pq.offer(new Node(S, 0));
+        boolean[] visited = new boolean[V+1];
 
         while(!pq.isEmpty()) {
             Node cur = pq.poll();
             // 현재 지점까지의 최소 가중치와 현재까지 온 비용 비교
-            if (cur.weight > dist[cur.vertex]) continue;
+            if (visited[cur.vertex]) continue;
+            visited[cur.vertex] = true;
             for (Node n : graph.get(cur.vertex)) {
                 if (dist[n.vertex] > dist[cur.vertex] + n.weight) {
                     dist[n.vertex] = dist[cur.vertex] + n.weight;
