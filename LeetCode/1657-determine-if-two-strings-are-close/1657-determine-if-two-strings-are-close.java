@@ -1,33 +1,32 @@
 import java.util.*;
+
 class Solution {
     public boolean closeStrings(String word1, String word2) {
-        Map<Character, Integer> m1 = new HashMap<>();
-        Map<Character, Integer> m2 = new HashMap<>();
-        for(char c : word1.toCharArray()) {
-            m1.put(c, m1.getOrDefault(c, 0) + 1);
-        }
-        for(char c : word2.toCharArray()) {
-            m2.put(c, m2.getOrDefault(c, 0) + 1);
-        }
+        if (word1.length() != word2.length()) return false;
 
-        for(char k1 : m1.keySet()) {
-            if(!m2.containsKey(k1)) return false;
-        }
+        int[] freq1 = new int[26]; // word1의 알파벳 빈도수
+        int[] freq2 = new int[26]; // word2의 알파벳 빈도수
 
-        List<Integer> v1 = new ArrayList<>(m1.values().stream().toList());
-        List<Integer> v2 = new ArrayList<>(m2.values().stream().toList());
+        Set<Character> set1 = new HashSet<>(); // word1의 문자 집합
+        Set<Character> set2 = new HashSet<>(); // word2의 문자 집합
 
-        if(v1.size() != v2.size()) return false;
-
-        Collections.sort(v1);
-        Collections.sort(v2);
-
-        for(int i = 0; i < v1.size(); i++) {
-            if(!v1.get(i).equals(v2.get(i))) {
-                return false;
-            }
+        for (char c : word1.toCharArray()) {
+            freq1[c - 'a']++;
+            set1.add(c);
         }
 
-        return true;
+        for (char c : word2.toCharArray()) {
+            freq2[c - 'a']++;
+            set2.add(c);
+        }
+
+        // 문자 집합이 다르면 false
+        if (!set1.equals(set2)) return false;
+
+        // 빈도수 배열을 정렬하여 비교
+        Arrays.sort(freq1);
+        Arrays.sort(freq2);
+
+        return Arrays.equals(freq1, freq2);
     }
 }
