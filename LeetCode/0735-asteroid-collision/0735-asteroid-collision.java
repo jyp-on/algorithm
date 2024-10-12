@@ -1,36 +1,28 @@
-import java.util.*;
-import java.math.*;
 class Solution {
-    public int[] asteroidCollision(int[] aste) {
-        int n = aste.length;
-        int i = 0;
-        while(i < n) {
-            if(aste[i] < 0) {
-                int j = i-1;
-                while(j >= 0) {
-                    if(aste[i] * aste[j] > 0) break;
-                    int a = Math.abs(aste[i]);
-                    int b = Math.abs(aste[j]);
-                    if(a > b) {
-                        aste[j] = 0;
-                        j--;
-                    } else if(a < b) {
-                        aste[i] = 0;
-                        break;
-                    } else {
-                        aste[i] = 0;
-                        aste[j] = 0;
-                        break;
-                    }
+    public int[] asteroidCollision(int[] asteroids) {
+        Deque<Integer> deque = new LinkedList<>();
+
+        for (int asteroid : asteroids) {
+            if (asteroid > 0) {
+                deque.addLast(asteroid);
+            } else {
+                while(!deque.isEmpty() && deque.peekLast() > 0 && Math.abs(asteroid) > deque.peekLast()) {
+                    deque.removeLast();
                 }
+
+                if(!deque.isEmpty() && Math.abs(asteroid) == deque.peekLast()) {
+                    deque.removeLast();
+                } else if(deque.isEmpty() || deque.peekLast() < 0) {
+                    deque.addLast(asteroid);
+                }
+                
             }
-            i++;
         }
 
-        List<Integer> arr = new ArrayList<>();
-        for(int x : aste) {
-            if(x != 0) arr.add(x);
+        int[] result = new int[deque.size()];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = deque.removeFirst();
         }
-        return arr.stream().mapToInt(Integer::intValue).toArray();
+        return result;
     }
 }
