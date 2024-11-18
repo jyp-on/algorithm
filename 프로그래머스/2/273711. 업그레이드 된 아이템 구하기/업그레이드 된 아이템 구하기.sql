@@ -1,0 +1,7 @@
+SELECT ITEM_ID, ITEM_NAME, RARITY FROM ITEM_INFO ii
+WHERE ii.ITEM_ID IN
+    (SELECT ITEM_ID FROM ITEM_TREE it
+    WHERE it.PARENT_ITEM_ID IN (SELECT ii.ITEM_ID
+                                FROM ITEM_INFO ii 
+                                WHERE ii.RARITY = "RARE"))
+ORDER BY ITEM_ID DESC
