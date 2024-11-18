@@ -1,5 +1,5 @@
-import java.util.*;
 import java.io.*;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -7,44 +7,41 @@ public class Main {
         StringTokenizer st = new StringTokenizer(br.readLine());
         int n = Integer.parseInt(st.nextToken());
         int k = Integer.parseInt(st.nextToken());
-        int[][] arr = new int[n][4];
+
+        // 국가 정보를 저장하는 배열
+        int[][] countries = new int[n][4];
         for (int i = 0; i < n; i++) {
             st = new StringTokenizer(br.readLine());
             for (int j = 0; j < 4; j++) {
-                arr[i][j] = Integer.parseInt(st.nextToken());
+                countries[i][j] = Integer.parseInt(st.nextToken());
             }
         }
 
-        Arrays.sort(arr, (o1, o2) -> {
-            if (o1[1] != o2[1]) {
-                return o2[1] - o1[1];
-            }
-            if (o1[2] != o2[2]) {
-                return o2[2] - o1[2];
-            }
-            if (o1[3] != o2[3]) {
-                return o2[3] - o1[3];
-            }
-            return 0;
+        // 금, 은, 동 순으로 내림차순 정렬
+        Arrays.sort(countries, (o1, o2) -> {
+            if (o1[1] != o2[1]) return o2[1] - o1[1]; // 금메달 비교
+            if (o1[2] != o2[2]) return o2[2] - o1[2]; // 은메달 비교
+            return o2[3] - o1[3];                     // 동메달 비교
         });
 
-        int cnt = 1;
-        int a=-1, b=-1, c=-1;
+        // 등수 찾기
+        int rank = 1;
+        int prevGold = -1, prevSilver = -1, prevBronze = -1;
+
         for (int i = 0; i < n; i++) {
-            if(arr[i][0]==k) {
-                if(a==arr[i][1] && b==arr[i][2] && c==arr[i][3]) {
-                    System.out.println(cnt-1);
-                } else {
-                    System.out.println(cnt);
-                }
+            // 현재 국가와 이전 국가의 메달 수가 다르면 등수를 갱신
+            if (countries[i][1] != prevGold || countries[i][2] != prevSilver || countries[i][3] != prevBronze) {
+                rank = i + 1; // 새로운 등수는 현재 인덱스 + 1
+                prevGold = countries[i][1];
+                prevSilver = countries[i][2];
+                prevBronze = countries[i][3];
+            }
+
+            // 목표 국가(K)의 등수를 찾으면 출력 후 종료
+            if (countries[i][0] == k) {
+                System.out.println(rank);
                 break;
             }
-//            System.out.printf("%d %d %d %d, cnt : %d\n", arr[i][0], arr[i][1], arr[i][2], arr[i][3], cnt);
-            if(a==arr[i][1] && b==arr[i][2] && c==arr[i][3]) continue;
-            a = arr[i][1];
-            b = arr[i][2];
-            c = arr[i][3];
-            cnt++;
         }
     }
 }
