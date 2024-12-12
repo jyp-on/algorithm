@@ -1,1 +1,1 @@
-# Algorithm study with Java Language
+# Algorithm study
