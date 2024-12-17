@@ -1,6 +1,6 @@
 class Solution {
     public int jump(int[] nums) {
-        int[] memo = new int[nums.length];
+        int[] memo = new int[nums.length]; // i까지 가는데 최소비용
         boolean flag = false;
         for(int i=0; i<nums.length; i++) {
             if(flag) break;
