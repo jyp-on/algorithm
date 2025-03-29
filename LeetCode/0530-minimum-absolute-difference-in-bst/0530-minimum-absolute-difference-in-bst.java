@@ -1,38 +1,24 @@
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode() {}
- *     TreeNode(int val) { this.val = val; }
- *     TreeNode(int val, TreeNode left, TreeNode right) {
- *         this.val = val;
- *         this.left = left;
- *         this.right = right;
- *     }
- * }
- */
+// BST는 중위순회 돌면 오름차순 정렬 되어있는 트리임
 class Solution {
-    List<Integer> li;
+    int minDiff = Integer.MAX_VALUE, prev = -1;
+    
     public int getMinimumDifference(TreeNode root) {
-        li = new ArrayList<>();
-        dfs(root);
-        Collections.sort(li);
+        inorder(root);
+        return minDiff;
+    }
 
-        int answer = Integer.MAX_VALUE;
+    private void inorder(TreeNode node) {
+        if (node == null) return;
 
-        for(int i=1; i<li.size(); i++) {
-            answer = Math.min(answer, li.get(i)-li.get(i-1));
+        inorder(node.left); // 왼쪽 서브트리 방문
+
+        // 현재 값과 이전 값의 차이를 계산 (최소 차이 갱신)
+        if (prev >= 0) {
+            minDiff = Math.min(minDiff, node.val - prev);
         }
-        
-        return answer;
+        prev = node.val; // 이전 값 업데이트
+
+        inorder(node.right); // 오른쪽 서브트리 방문
     }
 
-    public void dfs(TreeNode node) {
-        if(node==null) return;
-        li.add(node.val);
-        dfs(node.left);
-        dfs(node.right);
-    }
 }
