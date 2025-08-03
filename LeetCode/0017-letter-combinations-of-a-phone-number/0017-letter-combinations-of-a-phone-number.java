@@ -1,21 +1,30 @@
 class Solution {
-    public List<String> letterCombinations(String str) {
-        if(str.isEmpty())return new ArrayList<>();
-        String[] key = {"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
-        ArrayList<String> set = new ArrayList<>();
-        GG(str,"",key,set);
-        return set;
-    }
+    public List<String> letterCombinations(String digits) {
+        Map<Character, String> map = Map.of(
+            '2', "abc", '3', "def", '4', "ghi", '5', "jkl",
+            '6', "mno", '7', "pqrs", '8', "tuv", '9', "wxyz");
 
-    public void GG(String str, String ans, String[] key, ArrayList<String> set) {
-        if (str.length() == 0) {
-            set.add(ans);
+        List<String> ans = new ArrayList<>();
+        if(digits.length()==0) return ans;
+
+        backTracking(digits, 0, new StringBuilder(), map, ans);
+
+        return ans;
+    }   
+
+    void backTracking(String digits, int idx, StringBuilder path, Map<Character, String> map, List<String> ans) {
+        if(idx == digits.length()) {
+            ans.add(path.toString());
             return;
         }
 
-        String k = key[str.charAt(0)-48];
-        for(int i=0;i<k.length();i++){
-            GG(str.substring(1),ans+k.charAt(i),key,set);
+        char digit = digits.charAt(idx);
+        String letters = map.get(digit);
+
+        for(char letter : letters.toCharArray()) {
+            path.append(letter);
+            backTracking(digits, idx+1, path, map, ans);
+            path.deleteCharAt(path.length()-1);
         }
     }
 }
