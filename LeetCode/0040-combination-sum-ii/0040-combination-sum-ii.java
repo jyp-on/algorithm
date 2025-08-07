@@ -21,7 +21,7 @@ class Solution {
         }
 
         for(int i=start; i<candidates.length; i++) {
-            if(i > start && candidates[i] == candidates[i-1]) continue;
+            if(i > start && candidates[i] == candidates[i-1]) continue; // 중복된 값은 바로 넘어가기
             path.add(candidates[i]);
             bt(i+1, sum+candidates[i], candidates, target, path, answer);
             path.remove(path.size()-1);
