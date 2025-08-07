@@ -22,8 +22,10 @@ class Solution {
 
         for(int i=start; i<candidates.length; i++) {
             if(i > start && candidates[i] == candidates[i-1]) continue; // 중복된 값은 바로 넘어가기
+            if(sum + candidates[i] > target) break; // candidates는 이미 정렬되었기 때문에 한번 target을 넘으면 뒤를 볼 필요 없음
+
             path.add(candidates[i]);
-            bt(i+1, sum+candidates[i], candidates, target, path, answer);
+            bt(i+1, sum + candidates[i], candidates, target, path, answer);
             path.remove(path.size()-1);
         }
     }
